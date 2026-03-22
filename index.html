@@ -14,7 +14,6 @@ body {
     align-items: center;
     font-family: Arial, sans-serif;
     overflow: hidden;
-
     background: linear-gradient(270deg, #ff6ec4, #7873f5, #42e695, #ff6ec4);
     background-size: 800% 800%;
     animation: gradientMove 15s ease infinite;
@@ -75,8 +74,16 @@ h1 {
 
 /* الاسم */
 .name {
-    font-size: 1.5em;
+    font-size: 2em;
     margin: 10px 0;
+    color: #ff4da6;
+    font-weight: bold;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 5px #ff4da6; }
+    to { text-shadow: 0 0 20px #ff4da6; }
 }
 
 /* التايمر */
@@ -101,8 +108,7 @@ h1 {
 
     <h1>A Special Birthday Surprise is Coming 💖</h1>
 
-    <!-- ✏️ اكتب الاسم هنا -->
-    <div class="name">meriem</div>
+    <div class="name">Meriem</div>
 
     <div class="timer">
         <span id="days"></span> Days |
@@ -117,21 +123,34 @@ h1 {
 
 </div>
 
-<!-- 🎵 اكتب اسم الموسيقى هنا -->
-<audio autoplay loop>
+<!-- موسيقى الخلفية تبدأ تلقائياً -->
+<audio id="bgMusic" autoplay loop>
     <source src="musiic.mp3" type="audio/mpeg">
 </audio>
 
+<!-- confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <script>
+// عداد تنازلي
 const targetDate = new Date("2026-04-07T00:00:00").getTime();
 
-setInterval(() => {
+const timer = setInterval(() => {
     const now = new Date().getTime();
     const distance = targetDate - now;
 
     if (distance < 0) {
-        document.querySelector(".timer").innerHTML =
-        "🎉 Happy Birthday! 🎂";
+        clearInterval(timer);
+        document.querySelector(".container").innerHTML = `
+            <h1>🎉 Happy Birthday Meriem! 🎂</h1>
+            <p>You are an amazing friend 💛</p>
+        `;
+        // احتفال confetti
+        confetti({
+            particleCount: 200,
+            spread: 100,
+            origin: { y: 0.6 }
+        });
         return;
     }
 
@@ -140,10 +159,10 @@ setInterval(() => {
     const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
     const seconds = Math.floor((distance % (1000*60)) / 1000);
 
-    document.getElementById("days").innerHTML = days;
-    document.getElementById("hours").innerHTML = hours;
-    document.getElementById("minutes").innerHTML = minutes;
-    document.getElementById("seconds").innerHTML = seconds;
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
 
 }, 1000);
 </script>
