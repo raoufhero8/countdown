@@ -103,10 +103,10 @@ const timer = setInterval(() => {
 
     if(distance < 0){
         clearInterval(timer);
-        document.querySelector(".container").innerHTML = `
-            <h1>🎉 Happy Birthday Meriem! 🎂</h1>
-            <p>You are an amazing friend 💛</p>`;
+        // ✨ Confetti عند انتهاء العداد
         confetti({particleCount:200, spread:100, origin:{y:0.6}});
+        // ✏️ نص يظهر بدل العداد
+        document.querySelector(".timer").innerHTML = "Check your DM";
         return;
     }
 
@@ -121,11 +121,11 @@ const timer = setInterval(() => {
     document.getElementById("seconds").textContent = seconds;
 }, 1000);
 
-// 🔊 حل autoplay لكل المتصفحات
+// 🔊 تشغيل الموسيقى فور الدخول
 const audio = document.getElementById('bgMusic');
-audio.volume = 0; // البداية بصمت لتجاوز القيد
+audio.volume = 0;
 audio.play().catch(e => console.log("Autoplay blocked"));
-setTimeout(()=>{ audio.volume = 0.5; }, 100); // رفع الصوت تدريجيًا
+setTimeout(()=>{ audio.volume = 0.5; }, 100);
 </script>
 
 </body>
