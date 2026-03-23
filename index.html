@@ -2,130 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surprise Coming</title>
+<title>Special Surprise 💖</title>
 
 <style>
 body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-    background: linear-gradient(270deg, #ff6ec4, #7873f5, #42e695, #ff6ec4);
-    background-size: 800% 800%;
-    animation: gradientMove 15s ease infinite;
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial;
+    overflow:hidden;
+    background: linear-gradient(270deg,#ff6ec4,#7873f5,#42e695);
+    background-size:600% 600%;
+    animation:bg 10s infinite;
 }
 
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes bg{
+    0%{background-position:0%}
+    50%{background-position:100%}
+    100%{background-position:0%}
 }
 
-.stars::before, .stars::after {
-    content: "";
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    box-shadow:
-        50px 100px white,
-        150px 200px white,
-        250px 300px white,
-        350px 150px white,
-        450px 250px white,
-        550px 100px white,
-        650px 200px white,
-        750px 300px white;
-    animation: sparkle 3s linear infinite;
-}
-.stars::after { animation-delay: 1.5s; }
-@keyframes sparkle { 0% { opacity:0 } 50% { opacity:1 } 100% { opacity:0 } }
-
-.container {
-    position: relative;
-    z-index: 2;
-    background: rgba(255,255,255,0.85);
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+.container{
+    background:rgba(255,255,255,0.9);
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
-h1 { color: #d63384; font-size: 2.5em; }
-
-.name {
-    font-size: 2em;
-    margin: 10px 0;
-    color: #ff4da6;
-    font-weight: bold;
-    animation: glow 2s infinite alternate;
+h1{
+    color:#d63384;
 }
-@keyframes glow { from { text-shadow:0 0 5px #ff4da6; } to { text-shadow:0 0 20px #ff4da6; } }
 
-.timer { font-size: 2em; margin: 20px 0; }
-.footer { margin-top:20px; font-size:1.2em; }
+.name{
+    font-size:28px;
+    color:#ff4da6;
+    margin:10px 0;
+    font-weight:bold;
+}
+
+.timer{
+    font-size:24px;
+    margin-top:20px;
+}
+
+#qrcode img{
+    width:200px;
+    border-radius:15px;
+    box-shadow:0 0 25px #ff69b4;
+    transform:scale(0);
+    opacity:0;
+    transition:0.8s;
+}
+
+.showQR img{
+    transform:scale(1) !important;
+    opacity:1 !important;
+}
 </style>
 </head>
 
 <body>
 
-<div class="stars"></div>
-
 <div class="container">
-
     <h1>A Special Surprise is Coming 💖</h1>
     <div class="name">Meriem</div>
-    <div class="timer">
-        <span id="days"></span> Days |
-        <span id="hours"></span> Hours |
-        <span id="minutes"></span> Minutes |
-        <span id="seconds"></span> Seconds
-    </div>
-    <div class="footer">I prepared the best for you 💌</div>
 
+    <div class="timer" id="timer">
+        <span id="d"></span>d :
+        <span id="h"></span>h :
+        <span id="m"></span>m :
+        <span id="s"></span>s
+    </div>
+
+    <div id="qrcode"></div>
 </div>
 
-<audio id="bgMusic" autoplay loop>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
-// 🕒 العداد التنازلي
-const targetDate = new Date("2026-04-07T00:00:00").getTime();
-const timer = setInterval(() => {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+// ⏳ التاريخ
+const target = new Date("2026-04-07T00:00:00").getTime();
 
-    if(distance < 0){
+const timer = setInterval(()=>{
+
+    let now = new Date().getTime();
+    let diff = target - now;
+
+    if(diff < 0){
         clearInterval(timer);
-        // ✨ Confetti عند انتهاء العداد
-        confetti({particleCount:200, spread:100, origin:{y:0.6}});
-        // ✏️ نص يظهر بدل العداد
-        document.querySelector(".timer").innerHTML = "Check your DM";
+
+        // تغيير النص
+        document.getElementById("timer").innerHTML =
+        "Scan to unlock your surprise 👀";
+
+        // إضافة صورة QR (من مشروعك)
+        document.getElementById("qrcode").innerHTML =
+        '<img src="Qrcode.jpg">';
+
+        // أنيميشن
+        setTimeout(()=>{
+            document.getElementById("qrcode").classList.add("showQR");
+        },200);
+
         return;
     }
 
-    const days = Math.floor(distance/(1000*60*60*24));
-    const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-    const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
-    const seconds = Math.floor((distance%(1000*60))/1000);
+    document.getElementById("d").innerHTML = Math.floor(diff/(1000*60*60*24));
+    document.getElementById("h").innerHTML = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    document.getElementById("m").innerHTML = Math.floor((diff%(1000*60*60))/(1000*60));
+    document.getElementById("s").innerHTML = Math.floor((diff%(1000*60))/1000);
 
-    document.getElementById("days").textContent = days;
-    document.getElementById("hours").textContent = hours;
-    document.getElementById("minutes").textContent = minutes;
-    document.getElementById("seconds").textContent = seconds;
-}, 1000);
-
-// 🔊 تشغيل الموسيقى فور الدخول
-const audio = document.getElementById('bgMusic');
-audio.volume = 0;
-audio.play().catch(e => console.log("Autoplay blocked"));
-setTimeout(()=>{ audio.volume = 0.5; }, 100);
+},1000);
 </script>
 
 </body>
