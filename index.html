@@ -1,218 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>surprise for you 🫶🏻💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<style>
-body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family:'Poppins', sans-serif;
-    overflow:hidden;
-
-    background: linear-gradient(270deg,#ff6ec4,#7873f5,#42e695,#ffd86f);
-    background-size:600% 600%;
-    animation:bg 12s ease infinite;
-}
-
-@keyframes bg{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
-}
-
-/* الكارت */
-.container{
-    width: 360px;
-    padding: 50px 30px;
-    text-align:center;
-    background: rgba(255,255,255,0.95);
-    border-radius: 28px;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
-}
-
-/* ✨ النصوص اللي تلمع */
-h1, .name, .footer{
-    animation: glow 2.5s infinite;
-}
-
-/* الاسم */
-.name{
-    font-size: 26px;
-    font-weight: bold;
-    color:#ff4da6;
-    margin: 10px 0 25px;
-}
-
-/* glow effect */
-@keyframes glow{
-    0%{
-        text-shadow: 0 0 5px rgba(255,255,255,0.3),
-                     0 0 10px rgba(255,77,166,0.3);
+  <title>surprise for you 🫶🏻💖</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #ff6ec4, #7873f5, #42e695, #ffd86f); /* خلفية متدرجة وجميلة */
+      background-size: 600% 600%;
+      animation: bg 12s ease infinite;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
     }
-    50%{
-        text-shadow: 0 0 10px rgba(255,255,255,0.7),
-                     0 0 25px rgba(255,77,166,0.6),
-                     0 0 35px rgba(255,77,166,0.3);
+
+    @keyframes bg {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-    100%{
-        text-shadow: 0 0 5px rgba(255,255,255,0.3),
-                     0 0 10px rgba(255,77,166,0.3);
+
+    h1 {
+      font-size: 3.5em;
+      color: #fff;
+      text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+      margin-top: 20px;
     }
-}
 
-/* labels فوق العدّاد (بدون glow) */
-.timer-labels{
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    gap:10px;
-    margin-bottom:5px;
-}
+    .name {
+      font-size: 4em; /* تكبير "Meriem" */
+      color: #ff69b4; /* لون مميز */
+      font-weight: bold;
+      margin-top: 20px;
+      text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6); /* إضافة تأثير الظل */
+    }
 
-.timer-labels span{
-    font-size:12px;
-    font-weight:bold;
-    color:#d63384;
-}
+    #countdown {
+      font-size: 2em;
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
 
-/* العدّاد */
-.timer{
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    gap:10px;
-    margin-bottom:20px;
-}
+    .time-box {
+      display: inline-block;
+      background-color: #ff4da6;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      color: white;
+      font-size: 2.5em;
+      width: 80px;
+      height: 80px;
+      text-align: center;
+    }
 
-.timer span{
-    height:65px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:22px;
-    font-weight:bold;
-    color:white;
-    background:#ff4da6;
-    border-radius:16px;
-    box-shadow:0 10px 20px rgba(0,0,0,0.25);
-    animation:pulse 1.8s infinite;
-}
+    .label {
+      font-size: 1em;
+      color: #fff;
+      margin-top: 5px;
+    }
 
-@keyframes pulse{
-    0%{transform:scale(1);}
-    50%{transform:scale(1.06);}
-    100%{transform:scale(1);}
-}
+    .footer {
+      font-size: 1.5em;
+      color: white;
+      margin-top: 50px;
+      text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
+    }
 
-/* QR */
-#qrcode img{
-    width:160px;
-    margin-top:15px;
-    border-radius:15px;
-    transform:scale(0);
-    opacity:0;
-    transition:0.6s;
-}
+    #surprise {
+      display: none;
+      margin-top: 50px;
+      color: white;
+    }
 
-.showQR img{
-    transform:scale(1);
-    opacity:1;
-}
+    #surprise a {
+      font-size: 1.5em;
+      text-decoration: none;
+      color: #ff69b4;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    }
 
-/* footer */
-.footer{
-    font-size:14px;
-    margin-top:10px;
-}
+    #music-btn {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #ff4da6;
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    }
 
-/* زر الموسيقى */
-.music-control{
-    margin-top:15px;
-}
-
-.music-control button{
-    padding:10px 18px;
-    border:none;
-    border-radius:12px;
-    background:#ff4da6;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
-</style>
+    #music-btn:hover {
+      background-color: #ff3385;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
+  <h1>A Special Surprise is Coming 🫰🏻💖</h1>
+  <div class="name">Meriem</div>
 
-    <h1>A Special Surprise is Coming 🫰🏻💖</h1>
-
-    <div class="name">Meriem</div>
-
-    <!-- ✨ labels فوق العدّاد (بدون glow) -->
-    <div class="timer-labels">
-        <span>Days</span>
-        <span>Hours</span>
-        <span>Minutes</span>
-        <span>Seconds</span>
+  <!-- Countdown Boxes with labels -->
+  <div id="countdown">
+    <div>
+      <div class="time-box" id="days"></div>
+      <div class="label">Days</div>
     </div>
-
-    <!-- العدّاد -->
-    <div class="timer">
-        <span id="d">0</span>
-        <span id="h">0</span>
-        <span id="m">0</span>
-        <span id="s">0</span>
+    <div>
+      <div class="time-box" id="hours"></div>
+      <div class="label">Hours</div>
     </div>
-
-    <div class="footer">I prepared the best for you 💌</div>
-
-    <div id="qrcode"></div>
-
-    <div class="music-control">
-        <audio id="music" src="music.mp3" loop></audio>
-        <button id="playBtn">▶️ Play Music</button>
+    <div>
+      <div class="time-box" id="minutes"></div>
+      <div class="label">Minutes</div>
     </div>
+    <div>
+      <div class="time-box" id="seconds"></div>
+      <div class="label">Seconds</div>
+    </div>
+  </div>
 
-</div>
+  <!-- Footer Message under Countdown -->
+  <div class="footer">I prepared the best for you 💌</div>
 
-<script>
-const target = new Date("2026-04-07T00:00:00").getTime();
+  <!-- Surprise Message -->
+  <div id="surprise">
+    <h2>The surprise is here!</h2>
+    <a href="https://raoufhero8.github.io/happy-birthday/" target="_blank">Click here for the surprise!</a>
+  </div>
 
-setInterval(()=>{
-    let now = new Date().getTime();
-    let diff = target - now;
+  <!-- Music Button -->
+  <audio id="background-music" src="music.mp3" preload="auto"></audio>
+  <button id="music-btn">Play Music 🎶</button>
 
-    if(diff < 0){
-        document.querySelector(".timer").innerHTML = "🎉 Happy Birthday!";
-        const qr = document.getElementById("qrcode");
-        qr.innerHTML = '<img src="Qrcode.jpg">';
-        setTimeout(()=> qr.classList.add("showQR"),100);
-        return;
-    }
+  <script>
+    // Set the target date and time
+    const targetDate = new Date("2026-04-07T00:00:00").getTime();
 
-    document.getElementById("d").innerText =
-        Math.floor(diff/(1000*60*60*24));
-    document.getElementById("h").innerText =
-        Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-    document.getElementById("m").innerText =
-        Math.floor((diff%(1000*60*60))/(1000*60));
-    document.getElementById("s").innerText =
-        Math.floor((diff%(1000*60))/1000);
+    // Update the countdown every 1 second
+    const countdownInterval = setInterval(function() {
 
-},1000);
+      // Get today's date and time
+      const now = new Date().getTime();
 
-// 🎵 الموسيقى
-const music = document.getElementById("music");
-const btn = document.getElementById("playBtn");
-btn.addEventListener("click",()=>{
-    music.play();
-    btn.style.display="none";
-});
-</script>
+      // Calculate the time difference
+      const difference = targetDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      // Display the countdown
+      document.getElementById("days").innerHTML = days;
+      document.getElementById("hours").innerHTML = hours;
+      document.getElementById("minutes").innerHTML = minutes;
+      document.getElementById("seconds").innerHTML = seconds;
+
+      // If the countdown is over, display the surprise message and link
+      if (difference < 0) {
+        clearInterval(countdownInterval);
+        document.getElementById("countdown").style.display = "none";
+        document.getElementById("surprise").style.display = "block";
+      }
+    }, 1000);
+
+    // Play music when the button is clicked
+    document.getElementById("music-btn").addEventListener("click", function() {
+      var music = document.getElementById("background-music");
+      music.play();
+      this.style.display = "none"; // Hide the button after clicking
+    });
+  </script>
 
 </body>
 </html>
